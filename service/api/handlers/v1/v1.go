@@ -3,16 +3,16 @@ package v1
 import (
 	"net/http"
 
-	"github.com/MorselShogiew/ResizePhoto/logger"
-	"github.com/MorselShogiew/ResizePhoto/service/usecases"
+	"MorselShogiew/Users-service-rest/logger"
+	"MorselShogiew/Users-service-rest/service/usecases"
 )
 
 type Handlers struct {
-	u *usecases.ResizeService
+	u *usecases.Service
 	l logger.Logger
 }
 
-func New(u *usecases.ResizeService, l logger.Logger) *Handlers {
+func New(u *usecases.Service, l logger.Logger) *Handlers {
 	return &Handlers{u, l}
 }
 

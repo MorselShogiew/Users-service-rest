@@ -1,15 +1,15 @@
 package usecases
 
 import (
-	"github.com/MorselShogiew/ResizePhoto/repos"
+	"MorselShogiew/Users-service-rest/repos"
 )
 
-type ResizeService struct {
-	resizeAPIRepo repos.ResizeDBRepo
+type Service struct {
+	APIRepo repos.DBRepo
 }
 
-func New(r *repos.Repositories) *ResizeService {
-	return &ResizeService{
-		r.ResizeDBRepo,
+func New(r *repos.Repositories) *Service {
+	return &Service{
+		r.DBRepo,
 	}
 }

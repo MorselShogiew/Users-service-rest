@@ -9,11 +9,11 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/MorselShogiew/Users-service-rest/config"
-	"github.com/MorselShogiew/Users-service-rest/logger"
-	"github.com/MorselShogiew/Users-service-rest/router"
+	"MorselShogiew/Users-service-rest/config"
+	"MorselShogiew/Users-service-rest/logger"
+	"MorselShogiew/Users-service-rest/router"
 
-	s "github.com/MorselShogiew/Users-service-rest/service"
+	s "MorselShogiew/Users-service-rest/service"
 )
 
 type Application struct {

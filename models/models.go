@@ -1,7 +1,7 @@
 package models
 
-type Photo struct {
-	url    string
-	height string
-	width  string
+type User struct {
+	Id   int
+	Name string
+	Mail string
 }

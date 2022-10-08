@@ -25,7 +25,8 @@ type Config struct {
 	PromPrefix      string      `toml:"PromPrefix" json:"prom_prefix"`
 	ServerOpts      *ServerOpts `toml:"ServerOpt" json:"server_opts"`
 	Logger          *Logger     `toml:"Logger" json:"logger"`
-	ResizeDB        *DB         `toml:"ResizeDB" json:"resize_db"`
+	RedisAddr       string      `toml:"RedisAddr" json:"redis_addr"`
+	DB              *DB         `toml:"ResizeDB" json:"db"`
 }
 type Logger struct {
 	Level     string     `toml:"Level" json:"level"`

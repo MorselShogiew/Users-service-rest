@@ -1,13 +1,13 @@
 package main
 
 import (
-	"github.com/MorselShogiew/Users-service-rest/application"
-	"github.com/MorselShogiew/Users-service-rest/config"
-	"github.com/MorselShogiew/Users-service-rest/logger"
-	"github.com/MorselShogiew/Users-service-rest/logger/opt"
-	"github.com/MorselShogiew/Users-service-rest/provider"
-	"github.com/MorselShogiew/Users-service-rest/repos"
-	"github.com/MorselShogiew/Users-service-rest/service/api"
+	"MorselShogiew/Users-service-rest/application"
+	"MorselShogiew/Users-service-rest/config"
+	"MorselShogiew/Users-service-rest/logger"
+	"MorselShogiew/Users-service-rest/logger/opt"
+	"MorselShogiew/Users-service-rest/provider"
+	"MorselShogiew/Users-service-rest/repos"
+	"MorselShogiew/Users-service-rest/service/api"
 
 	"github.com/google/uuid"
 
@@ -23,9 +23,9 @@ func main() {
 
 	repositories := repos.New(p, l)
 
-	resizePhotoService := api.New(l, repositories)
+	UserService := api.New(l, repositories)
 
-	app := application.New(conf, l, resizePhotoService)
+	app := application.New(conf, l, UserService)
 	app.Start()
 }
 

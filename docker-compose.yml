@@ -1,0 +1,24 @@
+services:
+  db:
+        image: postgres
+        networks:
+            new:
+                aliases:
+                    - database
+        environment:
+            POSTGRES_DB: postgres
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+        ports:
+            - "5432"
+  migrate:
+        image: migrate/migrate
+        networks:
+            - new
+        volumes:
+            - .:/migrations
+        command: ["-path", "/schema", "-database",  "postgres://mydbuser:mydbpwd@database:5432/mydbname?sslmode=disable", "up"]
+        links: 
+            - db
+  networks:
+      new:

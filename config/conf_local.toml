@@ -1,7 +1,7 @@
-ApplicationName = "resize-api"
-PromPrefix = "resize_photo_api"
+ApplicationName = "user-api"
+PromPrefix = "user_service_api"
 
-[ResizeDB]
+[UserDB]
   Scheme = "postgres"
   Username = "postgres"
 	Password = "postgres"
@@ -23,6 +23,6 @@ PromPrefix = "resize_photo_api"
 [Logger]
   Level = "DEBUG"
   [Logger.LoggerStd]
-    LogFile = "/var/log/github.com/MorselShogiew/ResizePhoto.log"
+    LogFile = "/var/log/github.com/MorselShogiew/User.log"
     Stdout = true
     Disabled = false

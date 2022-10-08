@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/MorselShogiew/Users-service-rest/config"
+	"MorselShogiew/Users-service-rest/config"
+
 	"github.com/jmoiron/sqlx"
 )
 

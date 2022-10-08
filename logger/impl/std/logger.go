@@ -7,8 +7,8 @@ import (
 
 	"gopkg.in/natefinch/lumberjack.v2"
 
-	"github.com/MorselShogiew/Users-service-rest/logger/impl"
-	"github.com/MorselShogiew/Users-service-rest/logger/opt"
+	"MorselShogiew/Users-service-rest/logger/impl"
+	"MorselShogiew/Users-service-rest/logger/opt"
 )
 
 const (

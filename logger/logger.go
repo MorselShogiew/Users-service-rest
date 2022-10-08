@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/MorselShogiew/Users-service-rest/logger/impl/std"
-	"github.com/MorselShogiew/Users-service-rest/logger/opt"
+	"MorselShogiew/Users-service-rest/logger/impl/std"
+	"MorselShogiew/Users-service-rest/logger/opt"
 )
 
 type Logger interface {

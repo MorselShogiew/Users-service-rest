@@ -5,7 +5,7 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"github.com/MorselShogiew/Users-service-rest/middleware"
+	"MorselShogiew/Users-service-rest/middleware"
 )
 
 type API interface {

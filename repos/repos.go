@@ -1,17 +1,17 @@
 package repos
 
 import (
-	"github.com/MorselShogiew/Users-service-rest/logger"
-	"github.com/MorselShogiew/Users-service-rest/provider"
+	"MorselShogiew/Users-service-rest/logger"
+	"MorselShogiew/Users-service-rest/provider"
 )
 
 type Repositories struct {
-	ResizeDBRepo ResizeDBRepo
+	DBRepo DBRepo
 }
 
 func New(p provider.Provider, l logger.Logger) *Repositories {
-	ResizeDBRepo := NewResizeDBRepo(p, l)
+	DBRepo := NewDBRepo(p, l)
 	return &Repositories{
-		ResizeDBRepo,
+		DBRepo,
 	}
 }
