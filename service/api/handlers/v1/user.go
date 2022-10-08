@@ -53,7 +53,6 @@ func (h *Handlers) DeleteUser(w http.ResponseWriter, r *http.Request) {
 
 }
 func (h *Handlers) GetUsers(w http.ResponseWriter, r *http.Request) {
-
 	res, err := h.u.GetUsers()
 
 	h.CheckErrWriteResp(err, w, "")
