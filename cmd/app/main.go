@@ -6,7 +6,6 @@ import (
 	"MorselShogiew/Users-service-rest/logger"
 	"MorselShogiew/Users-service-rest/logger/opt"
 	"MorselShogiew/Users-service-rest/provider"
-	"MorselShogiew/Users-service-rest/repos"
 	"MorselShogiew/Users-service-rest/service/api"
 
 	"github.com/google/uuid"
@@ -21,9 +20,7 @@ func main() {
 	l := logger.New(opts)
 	p := provider.New(conf, l)
 
-	repositories := repos.New(p, l)
-
-	UserService := api.New(l, repositories)
+	UserService := api.New(p, l)
 
 	app := application.New(conf, l, UserService)
 	app.Start()

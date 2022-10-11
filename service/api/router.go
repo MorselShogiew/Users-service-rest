@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/mux"
 
 	"MorselShogiew/Users-service-rest/logger"
-	"MorselShogiew/Users-service-rest/repos"
+	"MorselShogiew/Users-service-rest/provider"
 
 	hv1 "MorselShogiew/Users-service-rest/service/api/handlers/v1"
 
@@ -18,8 +18,8 @@ type Service struct {
 	u  *usecases.Service
 }
 
-func New(l logger.Logger, r *repos.Repositories) *Service {
-	u := usecases.New(r)
+func New(p provider.Provider, l logger.Logger) *Service {
+	u := usecases.New(p, l)
 	return &Service{
 		v1: hv1.New(u, l),
 		u:  u,
@@ -48,5 +48,5 @@ func (s *Service) Stop() error {
 }
 
 func (s *Service) Name() string {
-	return "Resize Photo service"
+	return "service"
 }

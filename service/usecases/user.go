@@ -4,9 +4,8 @@ import "MorselShogiew/Users-service-rest/models"
 
 // i
 
-func (r *Service) AddUser(id int, name, mail string) error {
+func (r *Service) AddUser(name, mail string) error {
 	user := models.User{
-		Id:   id,
 		Name: name,
 		Mail: mail,
 	}
@@ -18,5 +17,17 @@ func (r *Service) DeleteUser(id int) error {
 }
 
 func (r *Service) GetUsers() (*[]models.User, error) {
-	return r.APIRepo.GetUsers()
+	var err error
+	res := r.cache.GetUsersList()
+	if res != nil {
+		return res, nil
+	}
+	res, err = r.APIRepo.GetUsers()
+	if err != nil {
+		return nil, err
+	}
+
+	r.cache.SetUsersList(res)
+	return res, nil
+
 }

@@ -1,7 +1,9 @@
 package repos
 
 import (
+	"MorselShogiew/Users-service-rest/logger"
 	"MorselShogiew/Users-service-rest/models"
+	"MorselShogiew/Users-service-rest/provider"
 	"encoding/json"
 	"time"
 
@@ -9,57 +11,42 @@ import (
 )
 
 type Cache interface {
-	Set(key string, value *[]models.User) error
-	Get(key string) (*[]models.User, error)
-	GetClient() *redis.Client
+	SetUsersList(value *[]models.User)
+	GetUsersList() *[]models.User
 }
 
 type redisCache struct {
-	host    string
-	db      int
-	expires time.Duration
+	c *redis.Client
+	l logger.Logger
 }
 
-func NewRedisCache(host string, db int, exp time.Duration) Cache {
-	return &redisCache{
-		host:    host,
-		db:      db,
-		expires: exp,
-	}
+func NewRedisCache(p provider.Provider, l logger.Logger) Cache {
+	return &redisCache{p.GetCacheClient(), l}
 }
 
-func (cache *redisCache) GetClient() *redis.Client {
-	return redis.NewClient(&redis.Options{
-		Addr:     cache.host,
-		Password: "",
-		DB:       cache.db,
-	})
-}
-
-func (cache *redisCache) Set(key string, value *[]models.User) error {
-	client := cache.GetClient()
-
+func (cache *redisCache) SetUsersList(value *[]models.User) {
 	jsn, err := json.Marshal(value)
 	if err != nil {
-		return err
+		return
 	}
-	client.Set(key, jsn, cache.expires*time.Second)
-	return nil
+	if err := cache.c.Set("users:list", jsn, 60*time.Second).Err(); err != nil {
+		cache.l.Error("error on set users list:", err)
+	}
 }
 
-func (cache *redisCache) Get(key string) (*[]models.User, error) {
-	client := cache.GetClient()
+func (cache *redisCache) GetUsersList() *[]models.User {
 
-	value, err := client.Get(key).Result()
+	value, err := cache.c.Get("users:list").Result()
 	if err != nil {
-		return nil, err
+		return nil
 	}
 
 	var user []models.User
 
 	err = json.Unmarshal([]byte(value), &user)
 	if err != nil {
-		return nil, err
+		return nil
 	}
-	return &user, nil
+
+	return &user
 }

@@ -1,7 +1,7 @@
 ApplicationName = "user-api"
 PromPrefix = "user_service_api"
 
-[UserDB]
+[DB]
   Scheme = "postgres"
   Username = "postgres"
 	Password = "postgres"

@@ -4,7 +4,6 @@ import (
 	"MorselShogiew/Users-service-rest/logger"
 	"MorselShogiew/Users-service-rest/models"
 	"MorselShogiew/Users-service-rest/provider"
-	"encoding/json"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -17,7 +16,7 @@ type DBRepo interface {
 
 type DB struct {
 	db *sqlx.DB
-	logger.Logger
+	l  logger.Logger
 }
 
 func NewDBRepo(p provider.Provider, l logger.Logger) DBRepo {
@@ -25,15 +24,15 @@ func NewDBRepo(p provider.Provider, l logger.Logger) DBRepo {
 }
 
 func (r DB) AddUser(user models.User) error {
-	var query = `INSERT INTO user(id,name,mail) values($1,$2,$3);`
-	if _, err := r.db.Exec(query, user.Id, user.Name, user.Mail); err != nil {
+	var query = `INSERT INTO users(name,mail) values($1,$2);`
+	if _, err := r.db.Exec(query, user.Name, user.Mail); err != nil {
 		return err
 	}
 	return nil
 }
 
 func (r DB) DeleteUser(id int) error {
-	var query = `DELETE FROM user WHERE id=($1);`
+	var query = `DELETE FROM users WHERE user_id=($1);`
 	if _, err := r.db.Exec(query, id); err != nil {
 		return err
 	}
@@ -41,15 +40,25 @@ func (r DB) DeleteUser(id int) error {
 }
 
 func (r DB) GetUsers() (*[]models.User, error) {
-	var data []byte
-	var query = `select * from user;`
-	if err := r.db.QueryRowx(query).Scan(&data); err != nil {
-		return nil, err
+	rows, err := r.db.Query("select * from users")
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+	var res []models.User
+
+	for rows.Next() {
+		u := models.User{}
+		err := rows.Scan(&u.Id, &u.Name, &u.Mail)
+		if err != nil {
+			r.l.Error("error on select data", err)
+			continue
+		}
+		res = append(res, u)
 	}
 
-	var res []models.User
-	if err := json.Unmarshal(data, &res); err != nil {
-		return nil, err
-	}
+	// if err := json.Unmarshal(data, &res); err != nil {
+	// 	return nil, err
+	// }
 	return &res, nil
 }

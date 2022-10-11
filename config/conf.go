@@ -26,7 +26,7 @@ type Config struct {
 	ServerOpts      *ServerOpts `toml:"ServerOpt" json:"server_opts"`
 	Logger          *Logger     `toml:"Logger" json:"logger"`
 	RedisAddr       string      `toml:"RedisAddr" json:"redis_addr"`
-	DB              *DB         `toml:"ResizeDB" json:"db"`
+	DB              *DB         `toml:"DB" json:"db"`
 }
 type Logger struct {
 	Level     string     `toml:"Level" json:"level"`

@@ -44,8 +44,8 @@ func New(conf *config.Config, l logger.Logger) Provider {
 	l.Info("connected to db")
 
 	// создаем клиента redis
-
-	cacheClient := redis.NewClient(&redis.Options{Addr: conf.RedisAddr, Password: "", DB: 0})
+	opt := &redis.Options{Addr: conf.RedisAddr, MaxRetries: 2, DialTimeout: time.Second, ReadTimeout: 20 * time.Second, DB: 1}
+	cacheClient := redis.NewClient(opt)
 	// создаем http клиента
 	c := &http.Client{
 		Timeout: 20 * time.Second,
